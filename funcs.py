@@ -1,5 +1,11 @@
 import os
+import random
+import time
+
+HOME = 100
+TOTAL_DICE_NUMBER = 6
 clear = lambda: os.system('cls')
+
 
 def continue_game():
     user_choice = input('''
@@ -11,9 +17,38 @@ def continue_game():
     elif user_choice.lower() == 'exit':
         exit()
 
-def start_game():
+def dots():
+    dices = "🎲🎲🎲🎲🎲"
+    for i in range(len(dices)):
+        print(dices[i],sep="", end="", flush=True)
+        time.sleep(0.5)
+    print()
+
+def get_dice_face():
+    clear()
+    print("Rolling the dice", end="")
+    dots()
+    dice_face = random.randint(0,TOTAL_DICE_NUMBER)
+    print(f"The dice shows {dice_face}")
+    return dice_face
+
+
+def get_players():
     player1 = input("Enter name of Player 1 : ")
     player2 = input("Enter name of Player 2 : ")
+    print(f"{player1} is up against {player2}")
+    return player1, player2
+
+
+
+
+
+def start_game():
+    clear()
+    player1, player2 = get_players()
+    print(player1, player2)
+    get_dice_face()
+
 
 def rules():
     clear()
@@ -82,6 +117,7 @@ def main_menu():
         Press 3 - How to Play ❓ 
         Press 4 - Settings⚙
         Press 5 - Exit🚪
+        Enter your choice - 
     '''))
     main_menu_options(choice)
 
