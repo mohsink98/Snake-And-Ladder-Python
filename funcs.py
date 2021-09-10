@@ -7,6 +7,28 @@ TOTAL_DICE_NUMBER = 6
 clear = lambda: os.system('cls')
 
 
+
+snakes = {
+    "27" : "5",
+    "40" : "3",
+    "43" : "18", 
+    "54" : "31",
+    "66" : "45",
+    "76" : "58",
+    "89" : "53",
+    "99" : "41"
+}
+
+ladders = {
+    "4" : "25",
+    "13" : "46",
+    "33" : "49",
+    "42" : "63",
+    "50" : "69",
+    "62" : "81",
+    "74" : "92"
+}
+
 def continue_game():
     user_choice = input('''
     Press 0 to go back to main menu
