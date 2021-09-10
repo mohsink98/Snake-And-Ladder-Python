@@ -6,6 +6,9 @@ HOME = 100
 TOTAL_DICE_NUMBER = 6
 clear = lambda: os.system('cls')
 
+#TODO : Add a beautiful intro page... research for animation if possible otherwise heading like structure for console.
+#TODO : Once completed. Merge this file to main.py and remove this file completely.
+
 
 
 snakes = {
@@ -43,14 +46,14 @@ def dots():
     dices = "🎲🎲🎲🎲🎲"
     for i in range(len(dices)):
         print(dices[i],sep="", end="", flush=True)
-        time.sleep(0.5)
+        time.sleep(0.3)
     print()
 
 def get_dice_face():
     clear()
     print("Rolling the dice", end="")
     dots()
-    dice_face = random.randint(0,TOTAL_DICE_NUMBER)
+    dice_face = random.randint(1,TOTAL_DICE_NUMBER)
     print(f"The dice shows {dice_face}")
     return dice_face
 
@@ -59,17 +62,53 @@ def get_players():
     player1 = input("Enter name of Player 1 : ")
     player2 = input("Enter name of Player 2 : ")
     print(f"{player1} is up against {player2}")
+    clear()
     return player1, player2
 
 
 
+def check_win(player_name, player_pos):
+    if player_pos == HOME:
+        print(f"Congrats! {player_name} won!🎊🎉🎇")
+        exit()
+    elif player_pos > HOME:
+        print("Exceeded")
 
 
+
+def final_player_pos(player_pos, dice_face):
+    if (player_pos + dice_face) > HOME:
+        print(f"You need {HOME - player_pos} steps to win")
+    else:
+        player_pos = player_pos + dice_face
+    return player_pos
+
+
+#TODO 1: clearing before running to item.. probably through adding these lines to a function
+#TODO 2: Make this function availabel for multiple users
+#TODO 3 Refactor the code and remove unnecessary lines.. add useful comments.
 def start_game():
     clear()
-    player1, player2 = get_players()
-    print(player1, player2)
-    get_dice_face()
+    player1_name, player2_name = get_players()
+    player1_pos = 0
+    player2_pos = 0 
+
+    while True:
+        go = input(f'{player1_name}: Please press "Enter" to roll the dice')
+        dice_face = get_dice_face()
+        player1_pos = final_player_pos(player1_pos, dice_face)
+        print(f"{player1_name}: Now.. You are {HOME - player1_pos} steps away from HOME!")
+        # clear()
+
+        check_win(player1_name, player1_pos)
+
+        go = input(f'{player2_name}: Please press "Enter" to roll the dice')
+        dice_face = get_dice_face()
+        player1_pos = player1_pos + dice_face
+        print(f"{player2_name}: Now.. You are {HOME - player1_pos} steps away from HOME!")
+        # clear()
+
+        check_win(player2_name, player2_pos)
 
 
 def rules():
@@ -110,8 +149,43 @@ def how_to_play():
     ''')
     continue_game()
 
+#TODO : find a way to map index value to dictionary item and then change it
+def change_snake_pos():
+    clear()
+    i=1
+    print('''
+        Index     Snake Mouth     Snake Tail''')
+    for key,val  in snakes.items():
+        print(f'''
+        {i}         {key}               {val}
+        ''')
+        i=i+1
+    index = int(input("Enter the index that you want to change: "))
+    snake_mouth_pos = int(input("Enter snake mouth position : "))
+    snake_tail_pos = int(input("Enter snake tail position : "))
+
+#TODO : create this function in the same way as change_snake_pos() function
+def change_ladder_pos():
+    clear()
+    print("Ladder Base             Ladder Top")
+    i=1
+    for key,val  in ladders.items():
+        print(f'''
+        {key}               {val}
+        ''')
+        i=i+1
+    
+
 def settings():
-    pass
+    clear()
+    setting_input = input(f''' 
+    Press 1 - Change Snakes Position
+    Press 2 - Change Ladder Position
+    ''')
+    if setting_input == "1":
+        change_snake_pos()
+    elif setting_input == "2":
+        change_ladder_pos()
 
 
 
