@@ -152,40 +152,64 @@ def how_to_play():
 #TODO : find a way to map index value to dictionary item and then change it
 def change_snake_pos():
     clear()
-    i=1
     print('''
-        Index     Snake Mouth     Snake Tail''')
+        Snake Mouth     Snake Tail''')
     for key,val  in snakes.items():
         print(f'''
-        {i}         {key}               {val}
+        {key}               {val}
         ''')
-        i=i+1
-    index = int(input("Enter the index that you want to change: "))
-    snake_mouth_pos = int(input("Enter snake mouth position : "))
-    snake_tail_pos = int(input("Enter snake tail position : "))
+    snake_mouth_old = input("Enter the snake mouth and snake tail (seperated by ',') your want to change? ")
+    snake_mouth_new, snake_tail_new = input("Enter the new values for mouth and tail (seperated by ',') that you want to change? ").split(',')
+    snakes.pop(snake_mouth_old)
+    snakes[snake_mouth_new] = snake_tail_new
+    print('''
+        Snake Mouth     Snake Tail''')
+    for key,val  in snakes.items():
+        print(f'''
+        {key}               {val}
+        ''')
+    continue_game()
+        
 
 #TODO : create this function in the same way as change_snake_pos() function
 def change_ladder_pos():
     clear()
-    print("Ladder Base             Ladder Top")
-    i=1
+    print('''
+        Ladder Bottom     Ladder Top''')
     for key,val  in ladders.items():
         print(f'''
         {key}               {val}
         ''')
-        i=i+1
+    ladder_bottom_old = input("Enter the Ladder bottom value you want to change? ")
+    ladder_bottom_new, ladder_top_new = input("Enter the new values for bottom and top (seperated by ',') that you want to change? ").split(',')
+    ladders.pop(ladder_bottom_old)
+    ladders[ladder_bottom_new] = ladder_top_new
+    print('''
+        Ladder Bottom     Ladder Top''')
+    for key,val  in ladders.items():
+        print(f'''
+        {key}               {val}
+        ''')
+    continue_game()
+        
     
 
 def settings():
     clear()
-    setting_input = input(f''' 
-    Press 1 - Change Snakes Position
-    Press 2 - Change Ladder Position
-    ''')
-    if setting_input == "1":
-        change_snake_pos()
-    elif setting_input == "2":
-        change_ladder_pos()
+    while True:
+        setting_input = input(f''' 
+        Press 1 - Change Snakes Position
+        Press 2 - Change Ladder Position
+        Enter your choice - \
+        ''')
+        if setting_input == "1":
+            change_snake_pos()
+        elif setting_input == "2":
+            change_ladder_pos()
+        else:
+            input("\n\tWrong input. Please Try Again!")
+            clear()
+            continue
 
 
 
@@ -213,7 +237,7 @@ def main_menu():
         Press 3 - How to Play ❓ 
         Press 4 - Settings⚙
         Press 5 - Exit🚪
-        Enter your choice - 
+        Enter your choice - \
     '''))
     main_menu_options(choice)
 
