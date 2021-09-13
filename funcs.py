@@ -6,10 +6,6 @@ HOME = 100
 TOTAL_DICE_NUMBER = 6
 clear = lambda: os.system('cls')
 
-#TODO : Add a beautiful intro page... research for animation if possible otherwise heading like structure for console.
-#TODO : Once completed. Merge this file to main.py and remove this file completely.
-
-
 
 snakes = {
     "27" : "5",
@@ -66,7 +62,6 @@ def display_pos(player1_name, player2_name, player1_pos, player2_pos):
         {player1_pos}                                                       {player2_pos}
     ''')
 
-
 def dots():
     dices = "🎲🎲🎲🎲🎲"
     for i in range(len(dices)):
@@ -83,7 +78,6 @@ def get_players():
     clear()
     return player1, player2
 
-
 def get_dice_face(player_name):
     clear()
     go = input(f'{player_name}: Please press "Enter" to roll the dice')
@@ -92,8 +86,6 @@ def get_dice_face(player_name):
     dice_face = random.randint(1,TOTAL_DICE_NUMBER)
     print(f"The dice shows {dice_face}")
     return dice_face
-
-
 
 def check_win(player_name, player_pos):
     dice_face = get_dice_face(player_name)
@@ -110,26 +102,20 @@ def check_win(player_name, player_pos):
         print(f"Oh oh! You just need {HOME - player_pos} steps")
     return player_pos
 
-
 def final_player_pos(player_pos, player_name):
     player_pos = check_win(player_name, player_pos)
     input("Press 'Enter' to continue ")
-    clear()
     return player_pos
 
-
-#TODO 1: clearing before running to item.. probably through adding these lines to a function
-#TODO 2: Make this function available for multiple users
-#TODO 3 Refactor the code and remove unnecessary lines.. add useful comments.
 def start_game():
     clear()
     player1_name, player2_name = get_players()
     player1_pos = 0
     player2_pos = 0
+    display_pos(player1_name, player2_name, player1_pos, player2_pos)
     while True:
         player1_pos = final_player_pos(player1_pos, player1_name) 
         player2_pos = final_player_pos(player2_pos, player2_name)
-
 
 def rules():
     clear()
@@ -153,8 +139,7 @@ def rules():
         then the player cannot move its piece until he/she gets a 2 to win or 1 to be on the 99th number.
     ''')
     continue_game()
-    
-
+  
 def how_to_play():
     clear()
     print('''
@@ -170,7 +155,6 @@ def how_to_play():
     ''')
     continue_game()
 
-#TODO : find a way to map index value to dictionary item and then change it
 def change_snake_pos():
     clear()
     print('''
@@ -191,8 +175,6 @@ def change_snake_pos():
         ''')
     continue_game()
         
-
-#TODO : create this function in the same way as change_snake_pos() function
 def change_ladder_pos():
     clear()
     print('''
@@ -213,8 +195,6 @@ def change_ladder_pos():
         ''')
     continue_game()
         
-    
-
 def settings():
     clear()
     while True:
@@ -235,8 +215,6 @@ def settings():
             clear()
             continue
 
-
-
 def main_menu_options(choice):
     if choice ==  1:
         start_game()
@@ -249,7 +227,6 @@ def main_menu_options(choice):
     elif choice == 5:
         clear()
         exit()
-
 
 def main_menu():
     clear()
@@ -264,7 +241,6 @@ def main_menu():
                                                     Enter your choice - \
     '''))
     main_menu_options(choice)
-
 
 if __name__== '__main__':
     main_menu()
