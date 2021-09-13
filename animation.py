@@ -9,9 +9,11 @@ for name in filenames:
         frames.append(f.readlines())
 
 def command_input():
-    command = input('''
+    print('''
                                         Press 'S' to start    -       Press 'E' to exit
     ''')
+    command = input("\t\t\t\t\tEnter your choice - ")
+
     if command.lower() == 's':
         funcs.main_menu()
     elif command.lower() == 'e':

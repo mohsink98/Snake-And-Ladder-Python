@@ -63,6 +63,7 @@ def display_pos(player1_name, player2_name, player1_pos, player2_pos):
     ''')
     player1_pos = final_player_pos(player1_pos, player1_name)
     print("\n\n")
+    time.sleep(1)
     player2_pos = final_player_pos(player2_pos, player2_name)
     clear()
     return player1_pos, player2_pos
@@ -108,7 +109,6 @@ def check_win(player_name, player_pos):
 
 def final_player_pos(player_pos, player_name):
     player_pos = check_win(player_name, player_pos)
-    input("\t\t\t\t\tPress 'Enter' to continue ")
     return player_pos
 
 def start_game():
