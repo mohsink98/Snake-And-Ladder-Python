@@ -42,6 +42,26 @@ def continue_game():
     elif user_choice.lower() == 'exit':
         exit()
 
+def snake_bite(player_name, player_pos):
+    for key, val in snakes.items():
+        if player_pos == int(key):
+            print(f"Oh no!😯 {player_name} got bitten by a snake🐍😔. Go back to {val}")
+            player_pos = int(val)
+        else:
+            continue
+    return player_pos
+
+def ladder_climb(player_name, player_pos):
+    for key, val in ladders.items():
+        if player_pos == int(key):
+            print(f"Great!!😁 {player_name} found a ladder😎. Move up to {val}")
+            player_pos = int(val)
+        else:
+            continue
+    return player_pos
+
+
+
 def dots():
     dices = "🎲🎲🎲🎲🎲"
     for i in range(len(dices)):
@@ -71,6 +91,8 @@ def get_dice_face(player_name):
 def check_win(player_name, player_pos):
     dice_face = get_dice_face(player_name)
     player_pos = player_pos + dice_face
+    player_pos = snake_bite(player_name, player_pos)
+    player_pos = ladder_climb(player_name, player_pos)
     if player_pos == HOME:
         print(f"Congrats! {player_name} won!🎊🎉🎇")
         exit()
@@ -80,6 +102,7 @@ def check_win(player_name, player_pos):
         player_pos = player_pos - dice_face
         print(f"Oh oh! You just need {HOME - player_pos} steps")
     return player_pos
+
 
 def final_player_pos(player_pos, player_name):
     player_pos = check_win(player_name, player_pos)
@@ -94,8 +117,8 @@ def final_player_pos(player_pos, player_name):
 def start_game():
     clear()
     player1_name, player2_name = get_players()
-    player1_pos = 95
-    player2_pos = 90
+    player1_pos = 0
+    player2_pos = 0
     while True:
         player1_pos = final_player_pos(player1_pos, player1_name) 
         player2_pos = final_player_pos(player2_pos, player2_name)
