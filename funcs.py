@@ -41,7 +41,7 @@ def continue_game():
 def snake_bite(player_name, player_pos):
     for key, val in snakes.items():
         if player_pos == int(key):
-            print(f"Oh no!😯 {player_name} got bitten by a snake🐍😔. Go back to {val}")
+            print(f"\t\t\t\t\tOh no!😯 {player_name} got bitten by a snake🐍😔. Go back to {val}")
             player_pos = int(val)
         else:
             continue
@@ -50,7 +50,7 @@ def snake_bite(player_name, player_pos):
 def ladder_climb(player_name, player_pos):
     for key, val in ladders.items():
         if player_pos == int(key):
-            print(f"Great!!😁 {player_name} found a ladder😎. Move up to {val}")
+            print(f"\t\t\t\t\tGreat!!😁 {player_name} found a ladder😎. Move up to {val}")
             player_pos = int(val)
         else:
             continue
@@ -58,9 +58,14 @@ def ladder_climb(player_name, player_pos):
 
 def display_pos(player1_name, player2_name, player1_pos, player2_pos):
     print(f'''
-        {player1_name}                                                      {player2_name}
-        {player1_pos}                                                       {player2_pos}
+        \t\t\t{player1_name}                                                      {player2_name}
+        \t\t\t{player1_pos}                                                       {player2_pos}
     ''')
+    player1_pos = final_player_pos(player1_pos, player1_name)
+    print("\n\n")
+    player2_pos = final_player_pos(player2_pos, player2_name)
+    clear()
+    return player1_pos, player2_pos
 
 def dots():
     dices = "🎲🎲🎲🎲🎲"
@@ -70,21 +75,20 @@ def dots():
     print()
 
 def get_players():
-    player1 = input('''                                          Enter name of Player 1 : ''')
-    player2 = input('''                                          Enter name of Player 2 : ''')
+    player1 = input('''\t\t\t\t\tEnter name of Player 1 : ''')
+    player2 = input('''\t\t\t\t\tEnter name of Player 2 : ''')
     print(f'''
-                                                                {player1} is up against {player2}
+    \t\t\t\t\t{player1} is up against {player2}
     ''')
     clear()
     return player1, player2
 
 def get_dice_face(player_name):
-    clear()
-    go = input(f'{player_name}: Please press "Enter" to roll the dice')
-    print("Rolling the dice", end="")
+    go = input(f'\t\t\t\t\t{player_name}: Please press "Enter" to roll the dice')
+    print("\t\t\t\t\tRolling the dice", end="")
     dots()
     dice_face = random.randint(1,TOTAL_DICE_NUMBER)
-    print(f"The dice shows {dice_face}")
+    print(f"\t\t\t\t\tThe dice shows {dice_face}")
     return dice_face
 
 def check_win(player_name, player_pos):
@@ -93,18 +97,18 @@ def check_win(player_name, player_pos):
     player_pos = snake_bite(player_name, player_pos)
     player_pos = ladder_climb(player_name, player_pos)
     if player_pos == HOME:
-        print(f"Congrats! {player_name} won!🎊🎉🎇")
+        print(f"\t\t\t\t\tCongrats! {player_name} won!🎊🎉🎇")
         exit()
     elif player_pos < HOME:
-        print(f"{player_name}: Now.. You are {HOME - player_pos} steps away from HOME!")
+        print(f"\t\t\t\t\t{player_name}: Now.. You are {HOME - player_pos} steps away from HOME!")
     elif player_pos > HOME:
         player_pos = player_pos - dice_face
-        print(f"Oh oh! You just need {HOME - player_pos} steps")
+        print(f"\t\t\t\t\tOh oh! You just need {HOME - player_pos} steps")
     return player_pos
 
 def final_player_pos(player_pos, player_name):
     player_pos = check_win(player_name, player_pos)
-    input("Press 'Enter' to continue ")
+    input("\t\t\t\t\tPress 'Enter' to continue ")
     return player_pos
 
 def start_game():
@@ -112,10 +116,8 @@ def start_game():
     player1_name, player2_name = get_players()
     player1_pos = 0
     player2_pos = 0
-    display_pos(player1_name, player2_name, player1_pos, player2_pos)
     while True:
-        player1_pos = final_player_pos(player1_pos, player1_name) 
-        player2_pos = final_player_pos(player2_pos, player2_name)
+        player1_pos, player2_pos = display_pos(player1_name, player2_name, player1_pos, player2_pos)
 
 def rules():
     clear()
@@ -139,7 +141,7 @@ def rules():
         then the player cannot move its piece until he/she gets a 2 to win or 1 to be on the 99th number.
     ''')
     continue_game()
-  
+
 def how_to_play():
     clear()
     print('''
@@ -199,10 +201,10 @@ def settings():
     clear()
     while True:
         setting_input = input(f''' 
-        Press 1 - Change Snakes Position
-        Press 2 - Change Ladder Position
-        Press 3 - Go Back
-        Enter your choice - \
+        \t\t\tPress 1 - Change Snakes Position
+        \t\t\tPress 2 - Change Ladder Position
+        \t\t\tPress 3 - Go Back
+        \t\t\tEnter your choice - \
         ''')
         if setting_input == "1":
             change_snake_pos()
@@ -211,7 +213,7 @@ def settings():
         elif setting_input == "3":
             continue_game()
         else:
-            input("\n\tWrong input. Please Try Again!")
+            input("\n\t\t\t\tWrong input. Please Try Again!")
             clear()
             continue
 
