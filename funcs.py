@@ -58,12 +58,11 @@ def ladder_climb(player_name, player_pos):
 
 def display_pos(player1_name, player2_name, player1_pos, player2_pos):
     print(f'''
-        \t\t\t{player1_name}                                                      {player2_name}
-        \t\t\t{player1_pos}                                                       {player2_pos}
+        \t\t\t{player1_name}\t\t\t\t\t\t\t\t{player2_name}
+        \t\t\t{player1_pos}\t\t\t\t\t\t\t\t{player2_pos}
     ''')
     player1_pos = final_player_pos(player1_pos, player1_name)
     print("\n\n")
-    time.sleep(1)
     player2_pos = final_player_pos(player2_pos, player2_name)
     clear()
     return player1_pos, player2_pos
@@ -109,6 +108,7 @@ def check_win(player_name, player_pos):
 
 def final_player_pos(player_pos, player_name):
     player_pos = check_win(player_name, player_pos)
+    input("\t\t\t\t\tPress 'Enter' to continue")
     return player_pos
 
 def start_game():
@@ -232,7 +232,8 @@ def main_menu_options(choice):
 
 def main_menu():
     clear()
-    choice = int(input('''
+    user_choice=0
+    choice = input('''
                                                 Welcome to the Snakes🐍 and Ladder Game!
                                                     
                                                     Press 1 - Start the game ▶
@@ -241,8 +242,18 @@ def main_menu():
                                                     Press 4 - Settings⚙
                                                     Press 5 - Exit🚪
                                                     Enter your choice - \
-    '''))
-    main_menu_options(choice)
+    ''')
+    try:
+        user_choice = int(choice)
+    except ValueError as ve:
+        print("\n\n")
+        input("\t\t\t\t\t\tYou are trying to input wrong value. Try again by pressing 'Enter'")
+    
+    if user_choice == 1 or 2 or 3 or 4 or 5: 
+        main_menu_options(user_choice)
+    else:
+        input("Wrong Input! Try Again")
+        main_menu()
 
 if __name__== '__main__':
     main_menu()
