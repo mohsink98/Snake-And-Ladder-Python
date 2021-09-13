@@ -254,6 +254,3 @@ def main_menu():
     else:
         input("Wrong Input! Try Again")
         main_menu()
-
-if __name__== '__main__':
-    main_menu()

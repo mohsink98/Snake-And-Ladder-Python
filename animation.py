@@ -23,15 +23,15 @@ def command_input():
         print("Try Again!")
         os.system('cls')
 
-while True:
-    for i in range(5):
-        for frame in frames:
-            print("".join(frame))
-            time.sleep(0.15)
-            os.system('cls')
-    f = open("animation2.txt", 'r', encoding="utf8")
-    file_content = f.read()
-    print(file_content)
-    command_input()
-
+def main_func():
+    while True:
+        for i in range(5):
+            for frame in frames:
+                print("".join(frame))
+                time.sleep(0.15)
+                os.system('cls')
+        f = open("animation2.txt", 'r', encoding="utf8")
+        file_content = f.read()
+        print(file_content)
+        command_input()
 
