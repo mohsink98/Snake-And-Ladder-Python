@@ -34,8 +34,8 @@ ladders = {
 
 def continue_game():
     user_choice = input('''
-    Press 0 to go back to main menu
-    Type 'Exit' to exit the game.
+        Press 0 to go back to main menu
+        Type 'Exit' to exit the game.
         ''')
     if user_choice == '0':
         main_menu()
@@ -60,6 +60,11 @@ def ladder_climb(player_name, player_pos):
             continue
     return player_pos
 
+def display_pos(player1_name, player2_name, player1_pos, player2_pos):
+    print(f'''
+        {player1_name}                                                      {player2_name}
+        {player1_pos}                                                       {player2_pos}
+    ''')
 
 
 def dots():
@@ -70,9 +75,11 @@ def dots():
     print()
 
 def get_players():
-    player1 = input("Enter name of Player 1 : ")
-    player2 = input("Enter name of Player 2 : ")
-    print(f"{player1} is up against {player2}")
+    player1 = input('''                                          Enter name of Player 1 : ''')
+    player2 = input('''                                          Enter name of Player 2 : ''')
+    print(f'''
+                                                                {player1} is up against {player2}
+    ''')
     clear()
     return player1, player2
 
@@ -214,12 +221,15 @@ def settings():
         setting_input = input(f''' 
         Press 1 - Change Snakes Position
         Press 2 - Change Ladder Position
+        Press 3 - Go Back
         Enter your choice - \
         ''')
         if setting_input == "1":
             change_snake_pos()
         elif setting_input == "2":
             change_ladder_pos()
+        elif setting_input == "3":
+            continue_game()
         else:
             input("\n\tWrong input. Please Try Again!")
             clear()
@@ -244,14 +254,14 @@ def main_menu_options(choice):
 def main_menu():
     clear()
     choice = int(input('''
-    Welcome to the Snakes🐍 and Ladder Game!
-        
-        Press 1 - Start the game ▶
-        Press 2 - Rules📕
-        Press 3 - How to Play ❓ 
-        Press 4 - Settings⚙
-        Press 5 - Exit🚪
-        Enter your choice - \
+                                                Welcome to the Snakes🐍 and Ladder Game!
+                                                    
+                                                    Press 1 - Start the game ▶
+                                                    Press 2 - Rules📕
+                                                    Press 3 - How to Play ❓ 
+                                                    Press 4 - Settings⚙
+                                                    Press 5 - Exit🚪
+                                                    Enter your choice - \
     '''))
     main_menu_options(choice)
 
