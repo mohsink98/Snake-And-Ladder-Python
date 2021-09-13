@@ -49,15 +49,6 @@ def dots():
         time.sleep(0.3)
     print()
 
-def get_dice_face():
-    clear()
-    print("Rolling the dice", end="")
-    dots()
-    dice_face = random.randint(1,TOTAL_DICE_NUMBER)
-    print(f"The dice shows {dice_face}")
-    return dice_face
-
-
 def get_players():
     player1 = input("Enter name of Player 1 : ")
     player2 = input("Enter name of Player 2 : ")
@@ -66,49 +57,48 @@ def get_players():
     return player1, player2
 
 
+def get_dice_face(player_name):
+    clear()
+    go = input(f'{player_name}: Please press "Enter" to roll the dice')
+    print("Rolling the dice", end="")
+    dots()
+    dice_face = random.randint(1,TOTAL_DICE_NUMBER)
+    print(f"The dice shows {dice_face}")
+    return dice_face
+
+
 
 def check_win(player_name, player_pos):
+    dice_face = get_dice_face(player_name)
+    player_pos = player_pos + dice_face
     if player_pos == HOME:
         print(f"Congrats! {player_name} won!🎊🎉🎇")
         exit()
+    elif player_pos < HOME:
+        print(f"{player_name}: Now.. You are {HOME - player_pos} steps away from HOME!")
     elif player_pos > HOME:
-        print("Exceeded")
+        player_pos = player_pos - dice_face
+        print(f"Oh oh! You just need {HOME - player_pos} steps")
+    return player_pos
 
-
-
-def final_player_pos(player_pos, dice_face):
-    if (player_pos + dice_face) > HOME:
-        print(f"You need {HOME - player_pos} steps to win")
-    else:
-        player_pos = player_pos + dice_face
+def final_player_pos(player_pos, player_name):
+    player_pos = check_win(player_name, player_pos)
+    input("Press 'Enter' to continue ")
+    clear()
     return player_pos
 
 
 #TODO 1: clearing before running to item.. probably through adding these lines to a function
-#TODO 2: Make this function availabel for multiple users
+#TODO 2: Make this function available for multiple users
 #TODO 3 Refactor the code and remove unnecessary lines.. add useful comments.
 def start_game():
     clear()
     player1_name, player2_name = get_players()
-    player1_pos = 0
-    player2_pos = 0 
-
+    player1_pos = 95
+    player2_pos = 90
     while True:
-        go = input(f'{player1_name}: Please press "Enter" to roll the dice')
-        dice_face = get_dice_face()
-        player1_pos = final_player_pos(player1_pos, dice_face)
-        print(f"{player1_name}: Now.. You are {HOME - player1_pos} steps away from HOME!")
-        # clear()
-
-        check_win(player1_name, player1_pos)
-
-        go = input(f'{player2_name}: Please press "Enter" to roll the dice')
-        dice_face = get_dice_face()
-        player1_pos = player1_pos + dice_face
-        print(f"{player2_name}: Now.. You are {HOME - player1_pos} steps away from HOME!")
-        # clear()
-
-        check_win(player2_name, player2_pos)
+        player1_pos = final_player_pos(player1_pos, player1_name) 
+        player2_pos = final_player_pos(player2_pos, player2_name)
 
 
 def rules():
@@ -121,7 +111,8 @@ def rules():
         it will immediately climb to the top of the ladder (which is considered to be a lucky move).
     
     3. Whereas if a player lands on the bottom of the snake or top of a ladder, 
-        the player will remain in the same spot (same number) and will not get affected by any particular rule. The players can never move down ladders.
+        the player will remain in the same spot (same number) and will not get affected by any particular rule. 
+        The players can never move down ladders.
     
     4. The pieces of different players can overlap each other without knocking out anyone. 
         There is no concept of knocking out by opponent players in Snakes and Ladders.
